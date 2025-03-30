@@ -1,0 +1,162 @@
+Generated on: 2025-03-30 01:27:56
+Note: For best readability, use the Lexend font.
+
+## MCQ
+Question: What mathematical operation transforms a mathematical expression into another equivalent simple form?
+A) Integration
+B) Differentiation
+C) Transformation
+D) Summation
+Correct Answer: C
+
+## MCQ
+Question: Who first introduced the Laplace transform?
+A) Fourier
+B) Heaviside
+C) Laplace
+D) Newton
+Correct Answer: C
+
+## MCQ
+Question: What type of equations can be solved using algebraic methods with the help of Laplace transform?
+A) Quadratic equations
+B) Logarithmic equations
+C) Differential equations
+D) Trigonometric equations
+Correct Answer: C
+
+## MCQ
+Question: What is the notation for the Laplace transform of a function f(t)?
+A) F(t)
+B) f(s)
+C) L[f(t)]
+D) l(f(s))
+Correct Answer: C
+
+## MCQ
+Question: What is the definition of the Laplace transform L[f(t)]?
+A) Integral from 0 to infinity of e^(-st) f(t) dt
+B) Integral from -infinity to infinity of e^(-st) f(t) dt
+C) Integral from 0 to 1 of e^(-st) f(t) dt
+D) Derivative of e^(-st) f(t)
+Correct Answer: A
+
+## MCQ
+Question: What is one of the sufficient conditions for the existence of the Laplace Transform of f(t)?
+A) f(t) must be a polynomial
+B) f(t) must be zero everywhere
+C) f(t) must be of exponential order
+D) f(t) must be an odd function
+Correct Answer: C
+
+## MCQ
+Question: What is the Laplace transform of the constant function f(t) = 1?
+A) s
+B) 1/s
+C) 1
+D) e^(-s)
+Correct Answer: B
+
+## MCQ
+Question: What is the Laplace transform of the function f(t) = e^(at)?
+A) 1 / (s + a)
+B) 1 / (s - a)
+C) s / (s^2 + a^2)
+D) a / (s^2 + a^2)
+Correct Answer: B
+
+## MCQ
+Question: What is the Laplace transform of the function f(t) = sin(at)?
+A) s / (s^2 + a^2)
+B) a / (s^2 + a^2)
+C) s / (s^2 - a^2)
+D) a / (s^2 - a^2)
+Correct Answer: B
+
+## MCQ
+Question: What is the Laplace transform of the function f(t) = cos(at)?
+A) s / (s^2 + a^2)
+B) a / (s^2 + a^2)
+C) s / (s^2 - a^2)
+D) a / (s^2 - a^2)
+Correct Answer: A
+
+## MCQ
+Question: What does the linearity property of Laplace Transform state for L[f(t) + g(t)]?
+A) L[f(t)] * L[g(t)]
+B) L[f(t)] / L[g(t)]
+C) L[f(t)] + L[g(t)]
+D) L[f(t)] - L[g(t)]
+Correct Answer: C
+
+## MCQ
+Question: According to the First Shifting Theorem, if L[f(t)] = F(s), what is L[e^(-at) f(t)]?
+A) F(s - a)
+B) F(s + a)
+C) e^(-as) F(s)
+D) F(s) / a
+Correct Answer: B
+
+## MCQ
+Question: What is the definition of the unit step function U(t-a)?
+A) 0 for t < a, 1 for t > a
+B) 1 for t < a, 0 for t > a
+C) 0 for t < 0, 1 for t > 0
+D) t for t < a, a for t > a
+Correct Answer: A
+
+## MCQ
+Question: What is the Laplace transform of the unit step function U(t-a)?
+A) e^(-as) / s
+B) e^(as) / s
+C) 1 / (s + a)
+D) e^(-as)
+Correct Answer: A
+
+## MCQ
+Question: If L[f(t)] = F(s), what is the inverse Laplace transform of F(s)?
+A) f(s)
+B) F(t)
+C) f(t)
+D) 1/f(t)
+Correct Answer: C
+
+## MCQ
+Question: What is the inverse Laplace transform of 1/s?
+A) t
+B) 1
+C) e^t
+D) sin(t)
+Correct Answer: B
+
+## MCQ
+Question: What is the inverse Laplace transform of 1/(s-a)?
+A) e^(-at)
+B) e^(at)
+C) sin(at)
+D) cos(at)
+Correct Answer: B
+
+## MCQ
+Question: What is the definition of the Z-transform Z[f(n)] for n >= 0?
+A) Summation from n=0 to infinity of f(n) * z^n
+B) Summation from n=0 to infinity of f(n) * z^(-n)
+C) Integral from 0 to infinity of f(n) * z^(-n) dn
+D) Summation from n=-infinity to infinity of f(n) * z^(-n)
+Correct Answer: B
+
+## MCQ
+Question: What is the Z-transform of the sequence f(n) = a^n for n >= 0?
+A) z / (z - a)
+B) z / (z + a)
+C) 1 / (z - a)
+D) a / (z - a)
+Correct Answer: A
+
+## MCQ
+Question: What is the Z-transform of the unit impulse function delta(n), where delta(n)=1 for n=0 and 0 otherwise?
+A) z
+B) 1/z
+C) 1
+D) 0
+Correct Answer: C

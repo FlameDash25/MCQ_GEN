@@ -1,0 +1,82 @@
+Generated on: 2025-03-30 14:26:24
+Note: For best readability, use the Lexend font.
+
+## MCQ
+Question: What is another name for a Basic Machine because it produces an output based on a combination of inputs?
+A) Sequential Machine
+B) State Machine
+C) Combinational Machine
+D) Memory Machine
+Correct Answer: C
+
+## MCQ
+Question: What does a basic machine lack according to the features listed?
+A) Input processing
+B) Output generation
+C) Memory and internal states
+D) A function table
+Correct Answer: C
+
+## MCQ
+Question: Why is it necessary to consider internal states when improving a basic machine?
+A) To make it combinational
+B) To limit its capacity
+C) To handle potentially infinite languages or complex tasks
+D) To remove the need for input
+Correct Answer: C
+
+## MCQ
+Question: What is a machine with a finite number of internal states called?
+A) Basic Machine
+B) Combinational Machine
+C) Infinite State Machine
+D) Finite State Machine (FSM)
+Correct Answer: D
+
+## MCQ
+Question: In an FSM, what does the State Function (STF) determine?
+A) The output based on the current state and input
+B) The next state based on the current state and input
+C) The initial state of the machine
+D) The set of possible inputs
+Correct Answer: B
+
+## MCQ
+Question: What does the 'F' represent in the tuple definition of a Finite Automaton FA = (Q, Σ, δ, q0, F)?
+A) The set of all states
+B) The input alphabet
+C) The start state
+D) The set of final states
+Correct Answer: D
+
+## MCQ
+Question: What is a key characteristic of a Deterministic Finite Automaton (DFA)?
+A) It can have multiple transitions for the same input from a state
+B) It uses epsilon transitions
+C) For each state and input symbol, there is exactly one transition
+D) It has no start state
+Correct Answer: C
+
+## MCQ
+Question: What does an ε-move allow an NFA to do?
+A) Reject the input string immediately
+B) Change its state without consuming an input symbol
+C) Read multiple input symbols at once
+D) Reverse the direction of the read head
+Correct Answer: B
+
+## MCQ
+Question: In a Moore machine, the output is determined solely by which component?
+A) Current input symbol
+B) Current state
+C) Start state
+D) Transition function
+Correct Answer: B
+
+## MCQ
+Question: How is the output determined in a Mealy machine?
+A) Only by the current state
+B) Only by the current input symbol
+C) By both the current state and the current input symbol
+D) By the sequence of states visited
+Correct Answer: C

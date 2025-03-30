@@ -1,0 +1,202 @@
+Generated on: 2025-03-30 14:21:22
+Note: For best readability, use the Lexend font.
+
+## MCQ
+Question: What platform is typically needed for ReactJS development?
+A) Java Development Kit (JDK)
+B) Python Interpreter
+C) NodeJS
+D) Ruby Version Manager
+Correct Answer: C
+
+## MCQ
+Question: What is ReactJS primarily used for building?
+A) Server-side logic
+B) Database management
+C) User Interfaces (UI)
+D) Operating systems
+Correct Answer: C
+
+## MCQ
+Question: Which company initially developed and maintained ReactJS?
+A) Google
+B) Microsoft
+C) Facebook
+D) Apple
+Correct Answer: C
+
+## MCQ
+Question: What feature does React use to improve app performance compared to manipulating the regular DOM directly?
+A) Shadow DOM
+B) Virtual DOM
+C) Linked Lists
+D) Web Workers
+Correct Answer: B
+
+## MCQ
+Question: What does React create in memory before making changes to the browser's DOM?
+A) A copy of the CSS
+B) A temporary file
+C) A VIRTUAL DOM
+D) A database snapshot
+Correct Answer: C
+
+## MCQ
+Question: What is JSX an extension of?
+A) HTML
+B) CSS
+C) JavaScript
+D) XML
+Correct Answer: C
+
+## MCQ
+Question: In React, thinking of everything in terms of what helps maintain code in larger projects?
+A) Functions
+B) Variables
+C) Components
+D) Modules
+Correct Answer: C
+
+## MCQ
+Question: Which term describes the data flow pattern implemented by React?
+A) Two-way data binding
+B) Bidirectional data flow
+C) Unidirectional data flow
+D) Multi-directional data flow
+Correct Answer: C
+
+## MCQ
+Question: What is one advantage of using ReactJS?
+A) Difficult to learn
+B) Slow performance
+C) Reusable Components
+D) Only works on the server-side
+Correct Answer: C
+
+## MCQ
+Question: Which command is maintained by Facebook for easily setting up a React environment?
+A) npm init react
+B) create-react-app
+C) setup-react-env
+D) react-install wizard
+Correct Answer: B
+
+## MCQ
+Question: What command is used to check the installed Node.js version in the terminal?
+A) node -v
+B) node check
+C) version node
+D) npm node -v
+Correct Answer: A
+
+## MCQ
+Question: Which file typically holds metadata and project dependencies for an npm project?
+A) index.html
+B) App.js
+C) package.json
+D) README.md
+Correct Answer: C
+
+## MCQ
+Question: What tool is used to compile React JSX and newer JavaScript (ES6) into older JavaScript (ES5) compatible with most browsers?
+A) Webpack
+B) Node
+C) Babel
+D) npm
+Correct Answer: C
+
+## MCQ
+Question: In a typical `create-react-app` project structure, where are the main application components like `App.js` located?
+A) public folder
+B) node_modules folder
+C) root directory
+D) src folder
+Correct Answer: D
+
+## MCQ
+Question: Which function is used to render React elements into the DOM?
+A) React.renderHTML()
+B) ReactDOM.render()
+C) React.display()
+D) DOM.showReact()
+Correct Answer: B
+
+## MCQ
+Question: What does JSX stand for?
+A) JavaScript Syntax Extension
+B) Java Source XML
+C) JavaScript XML
+D) JSON Script Xchange
+Correct Answer: C
+
+## MCQ
+Question: How are HTML attributes like 'class' typically written in JSX?
+A) class
+B) htmlClass
+C) className
+D) jsx-class
+Correct Answer: C
+
+## MCQ
+Question: What are the two types of components mentioned in the text?
+A) Simple and Complex
+B) Static and Dynamic
+C) Functional and Class
+D) Parent and Child
+Correct Answer: C
+
+## MCQ
+Question: What is the term for data passed down from a parent component to a child component?
+A) State
+B) Arguments
+C) Props
+D) Variables
+Correct Answer: C
+
+## MCQ
+Question: Can props be modified directly by the child component that receives them?
+A) Yes, always
+B) Yes, but only in class components
+C) No, props are immutable
+D) No, only state can be modified
+Correct Answer: C
+
+## MCQ
+Question: What is the term for data that is managed within a component and can change over time?
+A) Props
+B) State
+C) Context
+D) Refs
+Correct Answer: B
+
+## MCQ
+Question: Which method should be used to modify a component's state?
+A) this.state = newState
+B) modifyState(newState)
+C) this.setState(newState)
+D) changeState(newState)
+Correct Answer: C
+
+## MCQ
+Question: In React event handling, how is an event handler typically passed to an element like a button?
+A) As a string (e.g., "handleClick()")
+B) As a function reference (e.g., {handleClick})
+C) Using the `addEventListener` method directly
+D) Inside the `data-event` attribute
+Correct Answer: B
+
+## MCQ
+Question: What type of component maintains its own internal state regarding form data?
+A) Uncontrolled Component
+B) Stateless Component
+C) Functional Component
+D) Controlled Component
+Correct Answer: D
+
+## MCQ
+Question: What is React Router used for in React applications?
+A) Managing component state
+B) Styling components
+C) Handling navigation and routing between pages
+D) Making API requests
+Correct Answer: C

@@ -1,0 +1,820 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;700&display=swap");
+
+/* Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Lexend", sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    flex-direction: column;
+    color: white;
+    animation: fadeIn 1s ease-in-out;
+    padding: 20px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Navigation Bar Styling */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+nav .logo {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #ffcc00;
+    text-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+}
+
+
+/* Enhanced Date-Time Display */
+#date-time {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #ffdd55;
+  background: rgba(255, 204, 0, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 204, 0, 0.2);
+  transition: all 0.4s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(255, 204, 0, 0.05);
+}
+
+#date-time::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle, rgba(255,204,0,0.1) 0%, transparent 70%),
+    linear-gradient(45deg, transparent 45%, rgba(255,204,0,0.1) 50%, transparent 55%);
+  background-size: 10px 10px, 20px 20px;
+  animation: shine 3s infinite linear;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+@keyframes shine {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(20px, 20px); }
+}
+
+#date-time:hover {
+  background: rgba(255, 204, 0, 0.2);
+  color: #ffcc00;
+  box-shadow: 
+    0 0 15px rgba(255, 204, 0, 0.2),
+    inset 0 0 10px rgba(255, 204, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+#date-time i {
+  font-size: 1rem;
+  transition: transform 0.3s;
+}
+
+#date-time:hover i {
+  transform: rotate(360deg);
+}
+
+/* Pulsing animation for live time */
+@keyframes pulse-glow {
+  0% { text-shadow: 0 0 5px rgba(255, 204, 0, 0.5); }
+  50% { text-shadow: 0 0 15px rgba(255, 204, 0, 0.8); }
+  100% { text-shadow: 0 0 5px rgba(255, 204, 0, 0.5); }
+}
+
+/* Apply only when time is updating */
+#date-time.updating {
+  animation: pulse-glow 1.5s infinite;
+}
+
+/* Responsive Date-Time */
+@media (max-width: 768px) {
+  #date-time {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #date-time {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+  }
+}
+/* Marquee Styling */
+marquee {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    position: absolute;
+    top: 4rem;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: #ffcc00;
+    margin-top: 0.6rem;
+    padding: 0.5rem 0;
+    background: rgba(255, 204, 0, 0.1);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
+
+/* Responsive Marquee */
+@media (max-width: 768px) {
+    marquee {
+        font-size: 0.75rem;
+        /* Smaller font size for tablets */
+        padding: 0.4rem 0;
+        /* Smaller padding */
+    }
+}
+
+@media (max-width: 480px) {
+    marquee {
+        font-size: 0.65rem;
+        /* Smaller font size for mobile */
+        padding: 0.3rem 0;
+        /* Smaller padding */
+    }
+}
+
+/* Container Styling */
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    width: 90%;
+    animation: slideIn 0.8s ease-in-out;
+    margin-top: 6rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    color: #ffcc00;
+    text-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+label {
+    font-size: 1rem;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #ffcc00;
+}
+
+/* Input Fields Styling */
+input[type="file"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px; /* Increased border radius for a softer look */
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Added subtle shadow */
+}
+
+input[type="file"]:hover,
+input[type="number"]:hover,
+select:hover {
+    border-color: #ffcc00;
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+input[type="file"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #ffcc00;
+    box-shadow: 0 0 20px rgba(255, 204, 0, 0.8);
+}
+
+/* File Input Styling */
+input[type="file"] {
+    padding: 1rem;
+    border: 2px dotted rgba(255, 255, 255, 0.5);
+    text-align: center;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+    background: #28a745;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background: #218838;
+    transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    input[type="file"],
+    input[type="number"],
+    select {
+        padding: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    input[type="file"]::file-selector-button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    input[type="file"],
+    input[type="number"],
+    select {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+
+    input[type="file"]::file-selector-button {
+        padding: 0.3rem 0.7rem;
+        font-size: 0.85rem;
+    }
+}
+button {
+    width: 100%;
+    background: linear-gradient(90deg, #ffcc00, #ff8800);
+    color: white;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+}
+
+button:hover {
+    box-shadow: 0 0 25px rgba(255, 204, 0, 1);
+    transform: scale(1.05);
+}
+
+/* Enhanced Loading Screen */
+.loading-screen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 32, 39, 0.9);
+    /* Dark semi-transparent background */
+    backdrop-filter: blur(10px);
+    /* Blur effect */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #ffcc00;
+    font-size: 1.5rem;
+    /* Default font size */
+    font-weight: bold;
+    text-transform: uppercase;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Glowing Spinner */
+.spinner {
+    width: 4rem;
+    /* Default size */
+    height: 4rem;
+    /* Default size */
+    border: 6px solid rgba(255, 204, 0, 0.2);
+    border-top: 6px solid #ffcc00;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+    /* Glow effect */
+}
+
+/* Glowing Text */
+.loading-screen p {
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.8), 0 0 20px rgba(255, 204, 0, 0.6);
+    animation: glow 1.5s infinite alternate;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .loading-screen {
+        font-size: 1.25rem;
+        /* Smaller font size for tablets */
+    }
+
+    .spinner {
+        width: 3rem;
+        /* Smaller spinner for tablets */
+        height: 3rem;
+        /* Smaller spinner for tablets */
+        border-width: 5px;
+        /* Thinner border */
+    }
+}
+
+@media (max-width: 480px) {
+    .loading-screen {
+        font-size: 1rem;
+        /* Smaller font size for mobile */
+    }
+
+    .spinner {
+        width: 2.5rem;
+        /* Smaller spinner for mobile */
+        height: 2.5rem;
+        /* Smaller spinner for mobile */
+        border-width: 4px;
+        /* Thinner border */
+    }
+}
+
+/* Glowing Text */
+.loading-screen p {
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.8), 0 0 20px rgba(255, 204, 0, 0.6);
+    animation: glow 1.5s infinite alternate;
+}
+
+/* Keyframes for Spinner */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Keyframes for Glowing Text */
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 10px rgba(255, 204, 0, 0.8),
+            0 0 20px rgba(255, 204, 0, 0.6);
+    }
+
+    100% {
+        text-shadow: 0 0 20px rgba(255, 204, 0, 1), 0 0 40px rgba(255, 204, 0, 0.8);
+    }
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Footer Styling */
+.footer {
+    margin-top: 1.5rem;
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: #ffcc00;
+    text-align: center;
+}
+
+.footer a {
+    color: #ffcc00;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    padding: rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Hover Effect for Names */
+.footer a:hover {
+    color: white;
+    background: rgba(255, 204, 0, 0.1);
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.8), 0 0 20px rgba(255, 204, 0, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 204, 0, 0.3);
+}
+
+/* Underline Animation on Hover */
+.footer a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    background: #ffcc00;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease-in-out;
+}
+
+.footer a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Glow Animation */
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 10px rgba(255, 204, 0, 0.8),
+            0 0 20px rgba(255, 204, 0, 0.6);
+    }
+
+    100% {
+        text-shadow: 0 0 20px rgba(255, 204, 0, 1), 0 0 40px rgba(255, 204, 0, 0.8);
+    }
+}
+
+.footer a:hover {
+    animation: glow 1.5s infinite alternate;
+}
+
+/* File Name Styling */
+.file-name {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #ffcc00;
+    text-align: left;
+    word-break: break-word;
+    /* Ensure long file names wrap properly */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .file-name {
+        font-size: 0.75rem;
+        /* Smaller font size for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .file-name {
+        font-size: 0.65rem;
+        /* Smaller font size for mobile */
+    }
+}
+
+/* Flexbox layout for page range inputs */
+.page-range-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.page-range-group>div {
+    flex: 1;
+}
+
+.page-range-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.page-range-group input {
+    width: 100%;
+}
+
+/* Select Styling */
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23FFD700' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") no-repeat right 0.75rem center/12px 12px;
+    background-color: rgba(255, 255, 255, 0.1);
+    /* Match the theme */
+    color: white;
+    /* Text color */
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Select Option Styling */
+select option {
+    background-color: #2c5364;
+    /* Dark background for options */
+    color: white;
+    /* Text color for options */
+}
+
+/* Hover and Focus Styles */
+select:hover,
+select:focus {
+    border-color: #ffcc00;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .container {
+        padding: 1rem;
+    }
+
+    input[type="file"],
+    input[type="number"],
+    select {
+        font-size: 0.875rem;
+    }
+
+    button {
+        font-size: 0.875rem;
+    }
+
+    .footer {
+        font-size: 0.75rem;
+    }
+
+    nav {
+        padding: 0.75rem 1rem;
+        /* Reduce padding for smaller screens */
+    }
+
+    nav .logo {
+        font-size: 1.1rem;
+        /* Slightly smaller font size for logo */
+    }
+
+    #date-time {
+        font-size: 0.875rem;
+        /* Slightly smaller font size for date-time */
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.25rem;
+        white-space: nowrap;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 0.75rem;
+    }
+
+    .form-group label,
+    .form-group input,
+    .form-group select,
+    button {
+        font-size: 0.875rem;
+        white-space: nowrap;
+    }
+
+    .footer {
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+
+    nav {
+        padding: 0.5rem 1rem;
+        /* Further reduce padding for mobile */
+    }
+
+    nav .logo {
+        font-size: 1rem;
+        /* Smaller font size for logo on mobile */
+    }
+
+    #date-time {
+        font-size: 0.75rem;
+        /* Smaller font size for date-time on mobile */
+    }
+}
+
+/* Static Wave Styling */
+.wave {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    /* Default height for larger screens */
+    z-index: -1;
+    /* Ensure it stays behind other content */
+}
+
+/* Responsive Adjustments for Tablets */
+@media (max-width: 768px) {
+    .wave {
+        height: 100px;
+        /* Smaller height for tablets */
+    }
+}
+
+/* Responsive Adjustments for Mobile */
+@media (max-width: 480px) {
+    .wave {
+        height: 80px;
+        /* Smaller height for mobile */
+    }
+}
+
+/* Progress Bar Styling */
+#progressBarContainer {
+    margin-top: 0.5rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    /* Space between progress bar and text */
+}
+
+#progressBar {
+    width: 100%;
+    height: 6px;
+    /* Reduced height */
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    /* Ensure rounded corners are visible */
+}
+
+#progressBar::-webkit-progress-bar {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+#progressBar::-webkit-progress-value {
+    background: linear-gradient(90deg, #ffcc00, #ff8800);
+    border-radius: 3px;
+    transition: width 0.3s ease-in-out;
+    /* Smooth transition */
+}
+
+#progressText {
+    font-size: 0.875rem;
+    color: #ffcc00;
+    font-weight: bold;
+    min-width: 40px;
+    /* Ensure text doesn't shift too much */
+    text-align: right;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #progressBar {
+        height: 5px;
+        /* Smaller height for tablets */
+    }
+
+    #progressText {
+        font-size: 0.75rem;
+        /* Smaller font size for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    #progressBar {
+        height: 4px;
+        /* Smaller height for mobile */
+    }
+
+    #progressText {
+        font-size: 0.65rem;
+        /* Smaller font size for mobile */
+    }
+}
+
+/* Enhanced File Input with Dotted Border */
+input[type="file"] {
+    width: 100%;
+    padding: 1rem;
+    border: 2px dotted rgba(255, 255, 255, 0.5);
+    /* Dotted border */
+    border-radius: 8px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Change border color on hover */
+input[type="file"]:hover {
+    border-color: #ffcc00;
+    box-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+}
+
+/* File selector button styling */
+input[type="file"]::file-selector-button {
+    background: #28a745;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Button hover effect */
+input[type="file"]::file-selector-button:hover {
+    background: #218838;
+}
+
+/* 📌 Responsive Adjustments */
+@media (max-width: 768px) {
+    input[type="file"] {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    input[type="file"]::file-selector-button {
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    input[type="file"] {
+        padding: 0.7rem;
+        font-size: 0.85rem;
+        border-width: 1.5px;
+        /* Slightly thinner dotted border on small screens */
+    }
+
+    input[type="file"]::file-selector-button {
+        padding: 0.3rem 0.7rem;
+    }
+}

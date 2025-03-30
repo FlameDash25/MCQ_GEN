@@ -1,0 +1,26 @@
+Generated on: 2025-03-30 14:22:08
+Note: For best readability, use the Lexend font.
+
+## MCQ
+Question: What is the main focus of Business Intelligence (BI)?
+A) Simulating human intelligence in machines
+B) Analyzing historical and current data to support business decisions
+C) Enabling systems to learn from data automatically
+D) Extracting insights from unstructured data using complex algorithms
+Correct Answer: B
+
+## MCQ
+Question: Which field involves creating systems that can learn from data, identify patterns, and make decisions with minimal human input?
+A) Business Intelligence (BI)
+B) Data Science
+C) Machine Learning (ML)
+D) Data Warehousing
+Correct Answer: C
+
+## MCQ
+Question: Which schema organizes data in a simple, denormalized way primarily for fast queries?
+A) Snowflake Schema
+B) Star Schema
+C) Relational Model
+D) Hierarchical Schema
+Correct Answer: B

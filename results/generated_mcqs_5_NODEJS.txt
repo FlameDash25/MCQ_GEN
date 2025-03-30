@@ -1,0 +1,186 @@
+Generated on: 2025-03-30 01:26:06
+Note: For best readability, use the Lexend font.
+
+## MCQ
+Question: What is the primary role of the V8 engine in the context of Node.js?
+A) To manage the event loop and asynchronous operations.
+B) To provide a cross-platform runtime environment.
+C) To compile and execute JavaScript code outside the browser.
+D) To handle file system interactions and network requests.
+Correct Answer: C
+
+## MCQ
+Question: How does Node.js handle multiple concurrent user requests efficiently despite running in a single process?
+A) By creating a new thread for each incoming request.
+B) Through an event-driven, non-blocking I/O model.
+C) By buffering all incoming data before processing.
+D) By utilizing multiple V8 engines simultaneously.
+Correct Answer: B
+
+## MCQ
+Question: Which characteristic allows Node.js applications to handle tasks like file uploads efficiently without significant processing delays?
+A) Highly scalable nature due to the event mechanism.
+B) Single-threaded execution model.
+C) Absence of data buffering, processing data in chunks.
+D) Use of JavaScript for server-side applications.
+Correct Answer: C
+
+## MCQ
+Question: How does the Node.js process model fundamentally differ from the traditional web server model as described in the text?
+A) Node.js uses a thread pool, while traditional servers use a single thread.
+B) Node.js handles requests sequentially, while traditional servers handle them concurrently.
+C) Traditional servers dedicate a thread per request, while Node.js uses a single thread with an event loop for I/O.
+D) Traditional servers are asynchronous by default, while Node.js is synchronous.
+Correct Answer: C
+
+## MCQ
+Question: What underlying C library does Node.js use internally to manage its event loop and provide asynchronous I/O capabilities?
+A) V8 Engine
+B) libuv
+C) NPM
+D) ECMAScript
+Correct Answer: B
+
+## MCQ
+Question: Why is Node.js considered advantageous for developers already proficient in frontend JavaScript?
+A) It automatically converts frontend code to backend code.
+B) It allows using the same language (JavaScript) for both client-side and server-side development.
+C) It eliminates the need for HTML and CSS in web applications.
+D) It provides direct access to browser DOM elements on the server.
+Correct Answer: B
+
+## MCQ
+Question: When setting up a Node.js development environment, which tool is typically included with the Node.js installation itself (since version 0.6.0)?
+A) A specific IDE like VS Code
+B) The libuv library
+C) Node Package Manager (NPM)
+D) The V8 JavaScript Engine source code
+Correct Answer: C
+
+## MCQ
+Question: In the provided Node.js web server example using the 'http' module, what is the purpose of the `response.writeHead(200, {'Content-Type': 'text/plain'});` line?
+A) To end the response and send it to the client.
+B) To read the request headers from the client.
+C) To write the main content ("Hello World") to the response body.
+D) To set the HTTP status code and content type header for the response.
+Correct Answer: D
+
+## MCQ
+Question: Which of the following APIs, commonly available in browser-based JavaScript, is typically absent in a Node.js environment?
+A) `console.log()`
+B) `setTimeout()`
+C) `JSON.parse()`
+D) `document.getElementById()`
+Correct Answer: D
+
+## MCQ
+Question: What is the primary function of the Node.js REPL environment?
+A) To package Node.js applications for deployment.
+B) To install and manage external Node.js modules.
+C) To provide an interactive shell for executing JavaScript code snippets and debugging.
+D) To automatically compile TypeScript code into JavaScript.
+Correct Answer: C
+
+## MCQ
+Question: In the context of Node.js asynchronous operations, what is a callback function?
+A) A function that blocks the execution until an I/O operation is complete.
+B) A function passed as an argument to another function, to be executed upon completion of a task (like I/O).
+C) A special function used only for handling errors in Node.js.
+D) A built-in Node.js function for synchronous file reading.
+Correct Answer: B
+
+## MCQ
+Question: Consider the blocking vs. non-blocking code examples for reading 'input.txt'. Why does the non-blocking example print "Program Ended" before the file content?
+A) The file reading operation failed, so it skipped printing the content.
+B) `fs.readFile` starts the file reading and immediately returns control, allowing subsequent code to execute while I/O happens asynchronously.
+C) The `console.log("Program Ended");` statement has higher priority in the event loop.
+D) The blocking example uses an incorrect function call.
+Correct Answer: B
+
+## MCQ
+Question: When using the Node.js FS module, why is the asynchronous method (`fs.readFile`) generally preferred over the synchronous method (`fs.readFileSync`)?
+A) Synchronous methods are deprecated in newer Node.js versions.
+B) Asynchronous methods do not block the main execution thread, improving performance for concurrent operations.
+C) Synchronous methods require manual error handling, while asynchronous methods handle errors automatically.
+D) Asynchronous methods can read larger files than synchronous methods.
+Correct Answer: B
+
+## MCQ
+Question: What is the primary purpose of the Node.js Buffer class?
+A) To manage the event queue for asynchronous operations.
+B) To interact with raw binary data streams (like file system or network operations).
+C) To store JavaScript string data more efficiently.
+D) To provide utility functions for mathematical calculations.
+Correct Answer: B
+
+## MCQ
+Question: Which method would you use to combine two separate Node.js Buffer instances into a single new Buffer?
+A) `buf.copy()`
+B) `buf.concat()`
+C) `Buffer.concat()`
+D) `buf.write()`
+Correct Answer: C
+
+## MCQ
+Question: In Node.js streams, which event is typically emitted when there is no more data to be read from a readable stream?
+A) `data`
+B) `error`
+C) `finish`
+D) `end`
+Correct Answer: D
+
+## MCQ
+Question: What does the term "piping" refer to in the context of Node.js streams?
+A) Writing data directly to the console output.
+B) Connecting the output of a readable stream directly to the input of a writable stream.
+C) Compressing stream data using the 'zlib' module.
+D) Handling errors that occur during stream operations.
+Correct Answer: B
+
+## MCQ
+Question: Based on the "Chaining the Streams" example, what is the role of `zlib.createGzip()`?
+A) It's a readable stream that reads the original file.
+B) It's a writable stream that writes the decompressed file.
+C) It's a transform stream that compresses the data flowing through it.
+D) It's a duplex stream used for network communication.
+Correct Answer: C
+
+## MCQ
+Question: According to the Web Application Architecture description, which layer is responsible for interacting directly with databases or other data sources?
+A) Client Layer
+B) Server Layer
+C) Business Layer
+D) Data Layer
+Correct Answer: D
+
+## MCQ
+Question: In the Node.js web server code that serves 'index.html', what module is used to parse the requested URL path?
+A) `http`
+B) `fs`
+C) `url`
+D) `path`
+Correct Answer: C
+
+## MCQ
+Question: What pattern does Node.js use for its event handling mechanism, where listener functions react to fired events?
+A) Singleton Pattern
+B) Factory Pattern
+C) Observer Pattern
+D) Decorator Pattern
+Correct Answer: C
+
+## MCQ
+Question: When using the `EventEmitter` class, which method is used to trigger or fire a specific named event?
+A) `.on()`
+B) `.addListener()`
+C) `.emit()`
+D) `.removeListener()`
+Correct Answer: C
+
+## MCQ
+Question: What is the purpose of the `fs.unlink(path, callback)` method in the Node.js FS module?
+A) To create a symbolic link to a file.
+B) To read the contents of a file.
+C) To delete a file.
+D) To rename a file.
+Correct Answer: C

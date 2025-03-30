@@ -1,0 +1,82 @@
+Generated on: 2025-03-30 14:26:17
+Note: For best readability, use the Lexend font.
+
+## MCQ
+Question: What activity should happen before strategic planning for green IT initiatives?
+A) Strategic implementation
+B) Strategic thinking
+C) Return on investment analysis
+D) Metrics collection
+Correct Answer: B
+
+## MCQ
+Question: What is the main purpose of strategic thinking in green IT?
+A) To immediately start writing a detailed plan
+B) To develop a comprehensive green vision
+C) To allocate resources like capital and people
+D) To measure the success of implemented initiatives
+Correct Answer: B
+
+## MCQ
+Question: What does a vision statement outline for an organization?
+A) The fundamental purpose and critical processes
+B) The current systems and technology platforms
+C) What the organization wants to be in the future
+D) The specific steps for implementing applications
+Correct Answer: C
+
+## MCQ
+Question: What is Enterprise Architecture Planning (EAP) primarily concerned with?
+A) Calculating the return on investment for green projects
+B) Defining architectures for the use of information to support the business
+C) Communicating green initiatives through social media
+D) Lobbying regulators about environmental laws
+Correct Answer: B
+
+## MCQ
+Question: Which European Union directive restricts the use of hazardous materials like lead and mercury in electronic equipment?
+A) WEEE
+B) REACh
+C) EuP
+D) RoHS
+Correct Answer: D
+
+## MCQ
+Question: What does the WEEE Directive primarily place responsibility on manufacturers for?
+A) Reducing energy consumption during product use
+B) Declaring chemical combinations in products
+C) The take-back, disposal, and recycling of equipment
+D) Limiting greenhouse gas emissions during manufacturing
+Correct Answer: C
+
+## MCQ
+Question: What is a key component needed for the successful implementation of green IT initiatives?
+A) Ignoring employee feedback
+B) Focusing only on technology, not business goals
+C) Educating and involving employees
+D) Avoiding communication with management
+Correct Answer: C
+
+## MCQ
+Question: Why is it important for an IT manager to demonstrate the value of green IT initiatives?
+A) To complicate the regulatory environment
+B) To increase the complexity of IT systems
+C) To build confidence and gain management support for future phases
+D) To immediately replace all existing IT equipment
+Correct Answer: C
+
+## MCQ
+Question: What is the first step in developing a metrics program for green IT?
+A) Collecting all possible data immediately
+B) Identifying the program’s goals or objectives
+C) Evaluating the people performing the processes
+D) Selecting a social media platform
+Correct Answer: B
+
+## MCQ
+Question: Which standard, promoted by the EPA, focuses on the energy consumption of products while in use?
+A) RoHS
+B) ISO 14001
+C) Energy Star
+D) WEEE
+Correct Answer: C

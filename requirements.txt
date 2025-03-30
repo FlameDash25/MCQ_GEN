@@ -1,0 +1,11 @@
+Flask==3.0.2
+pdfplumber==0.10.3
+python-docx==0.8.11
+fpdf2==2.7.7
+google-generativeai==0.3.2
+werkzeug==3.0.1
+pytesseract==0.3.10
+Pillow==10.1.0
+openpyxl==3.1.2
+concurrent-log-handler==0.9.24
+pytz==2023.3.post1

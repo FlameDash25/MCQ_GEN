@@ -1,0 +1,646 @@
+/* Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Lexend", sans-serif;
+  /* Apply Lexend font */
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  color: white;
+  text-align: center;
+  flex-direction: column;
+  animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Navigation Bar Styling */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+nav .logo {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #ffcc00;
+  text-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+  white-space: nowrap;
+  /* Prevent text from wrapping */
+}
+
+/* Enhanced Date-Time Display */
+#date-time {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #ffdd55;
+  background: rgba(255, 204, 0, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 204, 0, 0.2);
+  transition: all 0.4s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 0 10px rgba(255, 204, 0, 0.05);
+}
+
+#date-time::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: 
+    radial-gradient(circle, rgba(255,204,0,0.1) 0%, transparent 70%),
+    linear-gradient(45deg, transparent 45%, rgba(255,204,0,0.1) 50%, transparent 55%);
+  background-size: 10px 10px, 20px 20px;
+  animation: shine 3s infinite linear;
+  opacity: 0.5;
+  z-index: -1;
+}
+
+@keyframes shine {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(20px, 20px); }
+}
+
+#date-time:hover {
+  background: rgba(255, 204, 0, 0.2);
+  color: #ffcc00;
+  box-shadow: 
+    0 0 15px rgba(255, 204, 0, 0.2),
+    inset 0 0 10px rgba(255, 204, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+#date-time i {
+  font-size: 1rem;
+  transition: transform 0.3s;
+}
+
+#date-time:hover i {
+  transform: rotate(360deg);
+}
+
+/* Pulsing animation for live time */
+@keyframes pulse-glow {
+  0% { text-shadow: 0 0 5px rgba(255, 204, 0, 0.5); }
+  50% { text-shadow: 0 0 15px rgba(255, 204, 0, 0.8); }
+  100% { text-shadow: 0 0 5px rgba(255, 204, 0, 0.5); }
+}
+
+/* Apply only when time is updating */
+#date-time.updating {
+  animation: pulse-glow 1.5s infinite;
+}
+
+/* Responsive Date-Time */
+@media (max-width: 768px) {
+  #date-time {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  #date-time {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem;
+  }
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  max-width: 1000px;
+  width: 90%;
+  animation: slideIn 0.8s ease-in-out;
+  margin-top: 6rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  color: #ffcc00;
+  border-bottom: 2px solid rgba(255, 204, 0, 0.6);
+  padding-bottom: 10px;
+  text-shadow: 0 0 15px rgba(255, 204, 0, 0.8);
+}
+
+/* MCQ Styling */
+.mcq {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border-left: 5px solid #ffcc00;
+}
+
+.mcq:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+}
+
+/* Question Styling */
+.question {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #ffcc00;
+    margin-bottom: 15px;
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.question::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, #ffcc00, #ff8800);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease-in-out;
+}
+
+.mcq:hover .question::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+/* Options Styling */
+.options {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.option {
+    padding: 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.3s ease-in-out;
+    border-left: 4px solid transparent;
+    padding-left: 15px;
+}
+
+.option:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #ffcc00;
+    border-left: 4px solid #ffcc00;
+    transform: translateX(10px);
+}
+
+/* Correct Answer Styling */
+.correct-answer {
+    font-weight: bold;
+    color: #00ff00;
+    margin-top: 15px;
+    font-size: 1rem;
+    background: rgba(0, 255, 0, 0.1);
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #00ff00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    animation: fadeInCorrect 0.5s ease-in-out;
+}
+
+.correct-answer::before {
+    content: "✔";
+    color: #00ff00;
+    font-size: 1.1rem;
+}
+
+@keyframes fadeInCorrect {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .mcq {
+        padding: 15px;
+    }
+
+    .question {
+        font-size: 1rem;
+    }
+
+    .option {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .correct-answer {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .mcq {
+        padding: 10px;
+    }
+
+    .question {
+        font-size: 0.95rem;
+    }
+
+    .option {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+
+    .correct-answer {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+}
+.buttons {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* Two columns */
+  gap: 10px;
+  /* Space between buttons */
+  width: 100%;
+  /* Full width of the container */
+}
+
+.buttons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* Center content horizontally and vertically */
+  gap: 8px;
+  padding: 12px 20px;
+  background: linear-gradient(90deg, #ffcc00, #ff8800);
+  color: white;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(255, 204, 0, 0.6);
+  letter-spacing: 1px;
+  text-align: center;
+  /* Center text */
+  width: 100%;
+  /* Full width of the grid cell */
+}
+
+.buttons a:hover {
+  box-shadow: 0 0 25px rgba(255, 204, 0, 1);
+  transform: scale(1.05);
+  background: linear-gradient(90deg, #ff8800, #ffcc00);
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+  .buttons {
+    grid-template-columns: repeat(2, 1fr);
+    /* Keep 2 columns on smaller screens */
+  }
+
+  .buttons a {
+    padding: 10px 15px;
+    /* Smaller padding */
+    font-size: 0.9rem;
+    /* Smaller font size */
+  }
+}
+
+@media (max-width: 480px) {
+  .buttons a {
+    padding: 8px 12px;
+    /* Even smaller padding */
+    font-size: 0.85rem;
+    /* Smaller font size */
+  }
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #ffcc00;
+  width: 75%;
+  transition: width 0.5s ease-in-out;
+}
+
+.footer {
+  margin-top: 40px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #ffcc00;
+  text-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+}
+
+.footer a {
+  color: #ffcc00;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer a:hover {
+  color: white;
+  text-shadow: 0 0 20px rgba(255, 204, 0, 1);
+}
+
+/* Copy to Clipboard Button */
+.copy-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  background: #ffcc00;
+  color: #333;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 8px rgba(255, 204, 0, 0.6);
+}
+
+.copy-button:hover {
+  background: #ff8800;
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .question {
+    font-size: 1rem;
+  }
+
+  .option {
+    font-size: 0.9rem;
+  }
+
+  .correct-answer {
+    font-size: 0.9rem;
+  }
+
+  .buttons a {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+
+  .copy-button {
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.85rem;
+    padding: 8px 16px;
+  }
+
+  .footer {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    flex-direction: row;
+    /* Keep logo and date-time in a row */
+    gap: 10px;
+    padding: 10px;
+  }
+
+  nav .logo {
+    font-size: 1rem;
+  }
+
+  #date-time {
+    font-size: 0.75rem;
+  }
+
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  .mcq {
+    padding: 10px;
+  }
+
+  .question {
+    font-size: 0.95rem;
+  }
+
+  .option {
+    font-size: 0.85rem;
+  }
+
+  .correct-answer {
+    font-size: 0.85rem;
+  }
+
+  .buttons a {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    flex: 1 1 45%;
+    /* Make buttons responsive */
+  }
+
+  .copy-button {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .footer {
+    font-size: 0.75rem;
+  }
+}
+
+/* Static Wave Styling */
+.wave {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  /* Default height for larger screens */
+  z-index: -1;
+  /* Ensure it stays behind other content */
+}
+
+/* Responsive Adjustments for Tablets */
+@media (max-width: 768px) {
+  .wave {
+    height: 100px;
+    /* Smaller height for tablets */
+  }
+}
+
+/* Responsive Adjustments for Mobile */
+@media (max-width: 480px) {
+  .wave {
+    height: 80px;
+    /* Smaller height for mobile */
+  }
+}
+/* Enhanced Back Button */
+.back-button {
+  position: fixed;
+  top: 70px;
+  right: 30px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1000;
+  text-decoration: none;
+  box-shadow: 
+    0 2px 10px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.back-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,204,0,0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+}
+
+.back-button:hover {
+  background: rgba(255, 204, 0, 0.15);
+  color: #ffcc00;
+  transform: translateX(-5px);
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.3),
+    inset 0 0 0 1px rgba(255, 204, 0, 0.3);
+}
+
+.back-button:hover::before {
+  transform: translateX(0);
+}
+
+.back-button:active {
+  transform: translateX(-5px) scale(0.98);
+}
+
+.back-button i {
+  transition: transform 0.3s;
+}
+
+.back-button:hover i {
+  transform: translateX(-3px);
+}
+
+/* Responsive Back Button */
+@media (max-width: 768px) {
+  .back-button {
+    top: 65px;
+    right: 20px;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-button {
+    top: 60px;
+    right: 15px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}

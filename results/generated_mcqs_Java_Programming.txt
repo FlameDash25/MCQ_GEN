@@ -1,0 +1,234 @@
+Generated on: 2025-03-31 00:21:20
+Note: For best readability, use the Lexend font.
+
+## MCQ
+Question: What term describes wrapping attributes and operations into objects?
+A) Inheritance
+B) Polymorphism
+C) Encapsulation
+D) Abstraction
+Correct Answer: C
+
+## MCQ
+Question: What does information hiding mean in the context of objects?
+A) Objects can access all details of other objects.
+B) Implementation details of objects are hidden from other objects.
+C) Objects share all their attributes publicly.
+D) Only object methods are hidden, not attributes.
+Correct Answer: B
+
+## MCQ
+Question: Which programming language mentioned is primarily procedural?
+A) Java
+B) C++
+C) C
+D) Python
+Correct Answer: C
+
+## MCQ
+Question: In Java, what is the basic unit of programming from which objects are created?
+A) Function
+B) Procedure
+C) Method
+D) Class
+Correct Answer: D
+
+## MCQ
+Question: What is the relationship of a class to an object often compared to?
+A) A car to an engine
+B) A blueprint to a house
+C) A function to a program
+D) A variable to data
+Correct Answer: B
+
+## MCQ
+Question: What is a major benefit of reusing existing classes in software development?
+A) It makes programs more complex.
+B) It increases the cost of development.
+C) It saves time and effort, and improves reliability.
+D) It reduces the need for testing.
+Correct Answer: C
+
+## MCQ
+Question: Which programming paradigm organizes a program around data (objects) and interfaces to that data?
+A) Procedural programming
+B) Process-oriented programming
+C) Object-oriented programming
+D) Functional programming
+Correct Answer: C
+
+## MCQ
+Question: What is a common characteristic of Procedural Oriented Programming (POP)?
+A) Emphasis is on data rather than doing actions.
+B) Data is hidden within objects.
+C) Emphasis is on doing actions (functions).
+D) It follows a bottom-up approach.
+Correct Answer: C
+
+## MCQ
+Question: Which Java buzzword relates to its ability to handle memory allocation and deallocation automatically?
+A) Simple
+B) Secure
+C) Portable
+D) Robust
+Correct Answer: D
+
+## MCQ
+Question: What allows Java programs to run on different types of CPUs under different environments?
+A) Multithreading
+B) Architecture-neutral design
+C) Robustness
+D) Simplicity
+Correct Answer: B
+
+## MCQ
+Question: Which Java Edition is geared toward developing applications for small, memory-constrained devices like cell phones?
+A) Java Standard Edition (Java SE)
+B) Java Enterprise Edition (Java EE)
+C) Java Micro Edition (Java ME)
+D) JavaFX
+Correct Answer: C
+
+## MCQ
+Question: What data type is used for whole-valued signed numbers like byte, short, int, and long?
+A) Floating-point numbers
+B) Characters
+C) Integers
+D) Boolean
+Correct Answer: C
+
+## MCQ
+Question: Which data type represents numbers with fractional precision, like float and double?
+A) Integers
+B) Floating-point numbers
+C) Characters
+D) Boolean
+Correct Answer: B
+
+## MCQ
+Question: What is the data type used in Java to store single characters like letters and numbers?
+A) String
+B) int
+C) char
+D) byte
+Correct Answer: C
+
+## MCQ
+Question: What data type is used for representing true/false values?
+A) int
+B) float
+C) char
+D) boolean
+Correct Answer: D
+
+## MCQ
+Question: What is the basic unit of storage in a Java program, defined by an identifier, type, and optional initializer?
+A) Class
+B) Method
+C) Variable
+D) Object
+Correct Answer: C
+
+## MCQ
+Question: What is a group of like-typed variables referred to by a common name called?
+A) Class
+B) Object
+C) Method
+D) Array
+Correct Answer: D
+
+## MCQ
+Question: How is a specific element in an array accessed?
+A) By its name
+B) By its type
+C) By its index
+D) By its value
+Correct Answer: C
+
+## MCQ
+Question: Which operator is used for assigning a value to a variable?
+A) ==
+B) +
+C) =
+D) *
+Correct Answer: C
+
+## MCQ
+Question: Which control statement is used for conditional execution based on a boolean condition?
+A) for
+B) while
+C) switch
+D) if
+Correct Answer: D
+
+## MCQ
+Question: Which statement provides a multiway branch based on the value of an expression?
+A) if
+B) for
+C) while
+D) switch
+Correct Answer: D
+
+## MCQ
+Question: Which loop statement repeats a block of code while its controlling expression is true?
+A) do-while
+B) for
+C) while
+D) switch
+Correct Answer: C
+
+## MCQ
+Question: What does the `new` operator do in Java?
+A) Declares a variable
+B) Dynamically allocates memory for an object
+C) Calls a method
+D) Defines a class
+Correct Answer: B
+
+## MCQ
+Question: Which access specifier allows a member to be accessed only by other members of its own class?
+A) public
+B) protected
+C) private
+D) default
+Correct Answer: C
+
+## MCQ
+Question: What is the term for defining two or more methods within the same class that share the same name but have different parameter declarations?
+A) Inheritance
+B) Overriding
+C) Overloading
+D) Encapsulation
+Correct Answer: C
+
+## MCQ
+Question: How are simple data types like int passed as arguments to methods in Java?
+A) Call-by-reference
+B) Call-by-name
+C) Call-by-value
+D) Call-by-object
+Correct Answer: C
+
+## MCQ
+Question: What is the process of defining something in terms of itself, often used when a method calls itself?
+A) Iteration
+B) Encapsulation
+C) Recursion
+D) Abstraction
+Correct Answer: C
+
+## MCQ
+Question: Are objects of type String in Java mutable or immutable?
+A) Mutable (can be changed)
+B) Immutable (cannot be changed once created)
+C) Both mutable and immutable
+D) Neither mutable nor immutable
+Correct Answer: B
+
+## MCQ
+Question: Which String method is used to obtain the number of characters in a String?
+A) getSize()
+B) length()
+C) count()
+D) charAt()
+Correct Answer: B
