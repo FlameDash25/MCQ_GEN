@@ -113,7 +113,18 @@
     </button>
 
     <p class="footer">Made with 🔥 by Velson, Prasanna, Omkar, Sanal</p>
-
+ <script>
+    (function() {
+    window.history.forward();
+    function noBack() {
+        window.history.forward();
+    }
+    window.onload = noBack;
+    window.onpageshow = function(evt) {
+        if (evt.persisted) noBack();
+    };
+})();
+  </script>
     <!-- Link to JavaScript -->
     <script src="{{ url_for('static', filename='script1.js') }}"></script>
 
