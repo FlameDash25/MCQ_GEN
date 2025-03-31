@@ -24,7 +24,7 @@ from openpyxl.utils import get_column_letter
 # ============================
 os.environ["GOOGLE_API_KEY"] = ""
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
-model = genai.GenerativeModel("models/gemini-1.5")
+model = genai.GenerativeModel("models/gemini-1.5-pro")
 
 # ============================
 # ⚙ Flask App Configuration
