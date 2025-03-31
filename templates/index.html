@@ -108,6 +108,18 @@
     <script src="{{ url_for('static', filename='script.js') }}"></script>
     <script src="{{ url_for('static', filename='app.js') }}"></script>
     <script src="{{ url_for('static', filename='sw.js') }}"></script>
+     <script>
+    (function() {
+    window.history.forward();
+    function noBack() {
+        window.history.forward();
+    }
+    window.onload = noBack;
+    window.onpageshow = function(evt) {
+        if (evt.persisted) noBack();
+    };
+})();
+  </script>
 
     <!-- Static Wave at Bottom -->
     <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
