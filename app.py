@@ -18,11 +18,14 @@ from PIL import Image
 import openpyxl
 from openpyxl.styles import Font, Color, Alignment, PatternFill
 from openpyxl.utils import get_column_letter
+import arabic_reshaper
+from bidi.algorithm import get_display
+import unicodedata
 
 # ============================
 # 🔑 API Key Configuration
 # ============================
-os.environ["GOOGLE_API_KEY"] = ""
+os.environ["GOOGLE_API_KEY"] = "AIzaSyCNnxJlPX7lo8AF_D6sysn-QL3t7awcH1M"
 genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 model = genai.GenerativeModel("models/gemini-1.5-pro")
 
@@ -39,6 +42,41 @@ executor = ThreadPoolExecutor(max_workers=4)
 
 UPLOAD_FOLDER.mkdir(exist_ok=True)
 RESULTS_FOLDER.mkdir(exist_ok=True)
+
+
+# ============================
+# 🌐 Language Support Functions
+# ============================
+def is_rtl(text):
+    """Check if text contains RTL characters (Arabic, Hebrew, etc.)"""
+    rtl_scripts = [
+        "Arabic",
+        "Hebrew",
+        "Syriac",
+        "Thaana",
+        "NKo",
+        "Samaritan",
+        "Mandaic",
+        "Devanagari",
+        "Bengali",
+    ]
+    for char in text:
+        try:
+            script = unicodedata.name(char).split()[0]
+            if script in rtl_scripts:
+                return True
+        except ValueError:
+            continue
+    return False
+
+
+def process_rtl_text(text):
+    """Process RTL text for proper display (Arabic reshaping and bidi algorithm)"""
+    try:
+        reshaped_text = arabic_reshaper.reshape(text)
+        return get_display(reshaped_text)
+    except:
+        return text
 
 
 # ============================
@@ -65,18 +103,41 @@ def extract_text_from_file(file_path):
 
 
 def analyze_image(image_path):
-    """Extract text from an image using Tesseract OCR."""
+    """Extract text from an image using Tesseract OCR with language detection"""
     try:
-        # Set the path to the Tesseract executable (if not in PATH)
         pytesseract.pytesseract.tesseract_cmd = (
             r"C:/Program Files/Tesseract-OCR/tesseract.exe"  # Windows
         )
-        # pytesseract.pytesseract.tesseract_cmd = '/usr/local/bin/tesseract'  # macOS/Linux
-
-        # Open the image using PIL
         img = Image.open(image_path)
-        # Use pytesseract to extract text
-        text = pytesseract.image_to_string(img)
+
+        # Try to detect language automatically
+        langs = {
+            "eng": "English",
+            "ara": "Arabic",
+            "chi_sim": "Chinese",
+            "chi_tra": "Chinese",
+            "fra": "French",
+            "deu": "German",
+            "hin": "Hindi",
+            "jpn": "Japanese",
+            "kor": "Korean",
+            "rus": "Russian",
+            "spa": "Spanish",
+        }
+
+        # First try with English
+        text = pytesseract.image_to_string(img, lang="eng")
+        if not text.strip():
+            # If no English text found, try with other languages
+            for lang_code in langs:
+                if lang_code != "eng":
+                    try:
+                        text = pytesseract.image_to_string(img, lang=lang_code)
+                        if text.strip():
+                            break
+                    except:
+                        continue
+
         return text.strip() if text else ""
     except Exception as e:
         logging.error(f"Error analyzing image: {str(e)}")
@@ -88,7 +149,6 @@ def extract_text_and_images_from_pdf(file_path, start_page=None, end_page=None):
     text = ""
     images = []
     with pdfplumber.open(file_path) as pdf:
-        # Adjust start_page and end_page to 0-based indexing
         start_page = start_page - 1 if start_page else 0
         end_page = end_page if end_page else len(pdf.pages)
 
@@ -96,7 +156,6 @@ def extract_text_and_images_from_pdf(file_path, start_page=None, end_page=None):
             if start_page <= page_num < end_page:
                 text += page.extract_text() or ""
                 for image in page.images:
-                    # Save the image temporarily
                     image_path = RESULTS_FOLDER / f"image_{len(images)}.png"
                     with open(image_path, "wb") as img_file:
                         img_file.write(image["stream"].get_data())
@@ -104,18 +163,43 @@ def extract_text_and_images_from_pdf(file_path, start_page=None, end_page=None):
     return text, images
 
 
-def generate_mcqs_from_text_and_images(text, images, num_questions, difficulty):
-    """Generate MCQs from text and images using Gemini API."""
-    # Analyze images and extract text
+def generate_mcqs_from_text_and_images(
+    text, images, num_questions, difficulty, target_language="none"
+):
+    """Generate MCQs from text and images using Gemini API with optional translation."""
     image_texts = []
     for image in images:
         image_text = analyze_image(image)
         image_texts.append(image_text)
 
-    # Combine text and image content
     full_content = text + "\n".join(image_texts)
 
-    # Define difficulty-specific instructions
+    language_instructions = {
+        "none": "",  # No translation
+        "english": " - Translate all questions, options, and answers to English.",
+        "hindi": " - Translate all questions, options, and answers to Hindi (Devanagari script).",
+        "spanish": " - Translate all questions, options, and answers to Spanish.",
+        "french": " - Translate all questions, options, and answers to French.",
+        "german": " - Translate all questions, options, and answers to German.",
+        "japanese": " - Translate all questions, options, and answers to Japanese (use Kanji where appropriate).",
+        "korean": " - Translate all questions, options, and answers to Korean (Hangul script).",
+        "chinese": " - Translate all questions, options, and answers to Simplified Chinese.",
+        "arabic": " - Translate all questions, options, and answers to Arabic (right-to-left script).",
+        "russian": " - Translate all questions, options, and answers to Russian (Cyrillic script).",
+        "portuguese": " - Translate all questions, options, and answers to Portuguese.",
+        "italian": " - Translate all questions, options, and answers to Italian.",
+        "dutch": " - Translate all questions, options, and answers to Dutch.",
+        "swedish": " - Translate all questions, options, and answers to Swedish.",
+        "turkish": " - Translate all questions, options, and answers to Turkish.",
+        "polish": " - Translate all questions, options, and answers to Polish.",
+        "ukrainian": " - Translate all questions, options, and answers to Ukrainian.",
+        "vietnamese": " - Translate all questions, options, and answers to Vietnamese.",
+        "thai": " - Translate all questions, options, and answers to Thai.",
+        "greek": " - Translate all questions, options, and answers to Greek.",
+        "hebrew": " - Translate all questions, options, and answers to Hebrew.",
+        "farsi": " - Translate all questions, options, and answers to Farsi (Persian).",
+    }
+
     difficulty_instructions = {
         "easy": """
         - Generate simple and straightforward questions suitable for beginners.
@@ -140,12 +224,13 @@ def generate_mcqs_from_text_and_images(text, images, num_questions, difficulty):
     ### Instructions:
     - Difficulty Level: {difficulty.capitalize()}
     {difficulty_instructions[difficulty]}
+    {language_instructions.get(target_language, "")}
     - Ensure questions are **clear, relevant, and unambiguous**.
     - Provide **4 distinct answer choices** for each question.
     - Indicate the **correct answer** at the end of each question.
     - Carefully analyze both the text and any diagrams or visual content to ensure the questions and distractors are accurate and relevant.
     - Do not generate question numbers anywhere.
-    - In Question don't include phrases like According to the text anywhere or In the Text
+    - In Question don't include phrases like "According to the text" anywhere or "In the Text"
     - Do not include any HTML tags (like <sup>, <sub>, <b>, etc.) in the output.
 
     ### Text Content:
@@ -172,12 +257,17 @@ def generate_mcqs_from_text_and_images(text, images, num_questions, difficulty):
 
 
 def save_text_file(content, filename):
-    """Save the generated MCQs to a text file with a note about Lexend font."""
+    """Save the generated MCQs to a text file with proper encoding."""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     file_path = RESULTS_FOLDER / filename
+
+    # Process RTL text if needed
+    if is_rtl(content):
+        content = process_rtl_text(content)
+
     content_with_timestamp = (
         f"Generated on: {timestamp}\n"
-        f"Note: For best readability, use the Lexend font.\n\n"
+        f"Note: For best readability, use a Unicode-compatible font.\n\n"
         f"{content}"
     )
     try:
@@ -189,27 +279,32 @@ def save_text_file(content, filename):
 
 
 def generate_pdf(mcqs, filename):
-    """Generate a PDF file from the MCQs using Lexend font."""
+    """Generate a PDF file from the MCQs with full language support."""
     try:
         pdf = FPDF()
         pdf.add_page()
 
-        # Add Lexend regular and bold fonts
-        lexend_regular_path = (
-            "fonts/Lexend-Regular.ttf"  # Path to Lexend Regular .ttf file
-        )
-        lexend_bold_path = "fonts/Lexend-Bold.ttf"  # Path to Lexend Bold .ttf file
+        # Add Noto fonts for multilingual support
+        font_path = "fonts/NotoSans-Regular.ttf"
+        font_bold_path = "fonts/NotoSans-Bold.ttf"
 
-        pdf.add_font("Lexend", "", lexend_regular_path, uni=True)  # Regular font
-        pdf.add_font("Lexend", "B", lexend_bold_path, uni=True)  # Bold font
+        # Check if we need RTL support
+        rtl_needed = is_rtl(mcqs)
 
-        # Set the default font to Lexend Regular
-        pdf.set_font("Lexend", size=12)
+        # Add main font
+        pdf.add_font("NotoSans", "", font_path, uni=True)
+        pdf.add_font("NotoSans", "B", font_bold_path, uni=True)
+
+        # Set the default font
+        pdf.set_font("NotoSans", size=12)
 
         # Add title
-        pdf.cell(0, 10, "Generated MCQs", ln=True, align="C")
+        title = "Generated MCQs"
+        if rtl_needed:
+            title = process_rtl_text(title)
+        pdf.cell(0, 10, title, ln=True, align="C")
 
-        # Remove any carriage return characters
+        # Clean content
         mcqs = mcqs.replace("\r", "").strip()
 
         for i, mcq in enumerate(mcqs.split("## MCQ"), start=0):
@@ -223,154 +318,181 @@ def generate_pdf(mcqs, filename):
                         correct_answer = line.split(":")[-1].strip()
                         break
 
-                # Extract question text safely
+                # Extract question text
                 question_text = (
                     lines[0].split("Question:", 1)[-1].strip()
                     if "Question:" in lines[0]
                     else lines[0].strip()
                 )
 
-                # Add question number and question text (bolded)
-                pdf.set_font("Lexend", "B", 12)  # Bold for question
-                pdf.multi_cell(0, 10, f"Q{i}: {question_text}")
-                pdf.ln(2)  # Small gap after question
+                # Process RTL text if needed
+                if rtl_needed:
+                    question_text = process_rtl_text(question_text)
+
+                # Add question
+                pdf.set_font("NotoSans", "B", 12)
+                question = f"Q{i}: {question_text}"
+                pdf.multi_cell(0, 10, question)
+                pdf.ln(2)
 
                 # Add options
-                pdf.set_font("Lexend", size=12)  # Normal font for options
+                pdf.set_font("NotoSans", size=12)
                 for line in lines[1:]:
                     if "Correct Answer:" in line:
-                        continue  # Skip the correct answer line
+                        continue
 
-                    if line.strip():  # Ensure the line is not empty
-                        # Remove numbers like "1)", "2)", "3)", "4)" from the options
+                    if line.strip():
                         option_text = line.strip()
                         if option_text[:2].isdigit() and option_text[2] == ")":
                             option_text = option_text[3:].strip()
 
-                        # Highlight correct answer in green
+                        # Process RTL text if needed
+                        if rtl_needed:
+                            option_text = process_rtl_text(option_text)
+
+                        # Highlight correct answer
                         if correct_answer and line.strip().startswith(
                             correct_answer + ")"
                         ):
-                            pdf.set_text_color(0, 128, 0)  # Green for correct answer
-                            pdf.set_font("Lexend", "B", 12)  # Bold for correct answer
+                            pdf.set_text_color(0, 128, 0)
+                            pdf.set_font("NotoSans", "B", 12)
                         else:
-                            pdf.set_text_color(0, 0, 0)  # Black for incorrect options
-                            pdf.set_font(
-                                "Lexend", size=12
-                            )  # Normal font for incorrect options
+                            pdf.set_text_color(0, 0, 0)
+                            pdf.set_font("NotoSans", size=12)
 
-                        # Wrap long text into multiple lines
                         pdf.multi_cell(0, 10, option_text)
-                        pdf.ln(2)  # Small gap between options
+                        pdf.ln(2)
 
-                # Add correct answer at the end
-                pdf.set_text_color(0, 128, 0)  # Green for correct answer
-                pdf.set_font("Lexend", "B", 12)  # Bold for correct answer
-                pdf.multi_cell(0, 10, f"Correct Answer: {correct_answer}")
-                pdf.ln(10)  # Spacing between MCQs
+                # Add correct answer
+                pdf.set_text_color(0, 128, 0)
+                pdf.set_font("NotoSans", "B", 12)
+                correct = f"Correct Answer: {correct_answer}"
+                if rtl_needed:
+                    correct = process_rtl_text(correct)
+                pdf.multi_cell(0, 10, correct)
+                pdf.ln(10)
 
                 # Reset text color
                 pdf.set_text_color(0, 0, 0)
 
         # Add timestamp
-        pdf.set_font("Lexend", size=10)
-        pdf.cell(
-            0,
-            10,
-            f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
-            ln=True,
-        )
+        pdf.set_font("NotoSans", size=10)
+        timestamp = f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        if rtl_needed:
+            timestamp = process_rtl_text(timestamp)
+        pdf.cell(0, 10, timestamp, ln=True)
 
-        # Save the PDF file
+        # Save PDF
         pdf_path = os.path.join(app.config["RESULTS_FOLDER"], filename)
         pdf.output(pdf_path)
         return pdf_path
-
     except Exception as e:
         logging.error(f"Error generating PDF: {str(e)}")
         return None
 
 
 def generate_docx(mcqs, filename):
-    """Generate a DOCX file from the MCQs using Lexend font."""
+    """Generate a DOCX file with full language support."""
     try:
         doc = Document()
 
-        # Set the default font to Lexend
+        # Set default style
         style = doc.styles["Normal"]
         font = style.font
-        font.name = "Lexend"
+        font.name = "Arial Unicode MS"  # Broad Unicode support
         font.size = Pt(12)
 
-        # Add a title and timestamp
+        # Check for RTL languages
+        rtl_needed = is_rtl(mcqs)
+
+        # Enable RTL if needed
+        if rtl_needed:
+            doc.styles["Normal"]._element.rPr.add(qn("w:bidi"), "on")
+            doc.styles["Normal"]._element.rPr.add(qn("w:rtl"), "on")
+
+        # Add title
         title = doc.add_paragraph("Generated MCQs")
         title.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
         title.runs[0].bold = True
         title.runs[0].font.size = Pt(14)
 
+        # Add timestamp
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         doc.add_paragraph(f"Generated on: {timestamp}\n").alignment = (
             WD_PARAGRAPH_ALIGNMENT.CENTER
         )
 
+        # Process MCQs
         for i, mcq in enumerate(mcqs.split("## MCQ"), start=0):
             if mcq.strip():
                 lines = mcq.strip().split("\n")
                 correct_answer = None
 
-                # Extract the correct answer
+                # Extract correct answer
                 for line in lines:
                     if "Correct Answer:" in line:
                         correct_answer = line.split(":")[-1].strip()
                         break
 
-                # Extract question text safely
+                # Extract question
                 question_text = (
                     lines[0].split("Question:", 1)[-1].strip()
                     if "Question:" in lines[0]
                     else lines[0].strip()
                 )
 
-                # Add question number and question text (bolded)
+                # Process RTL text if needed
+                if rtl_needed:
+                    question_text = process_rtl_text(question_text)
+
+                # Add question
                 question_para = doc.add_paragraph()
-                question_para.add_run(f"Q{i}: {question_text}").bold = True
+                question_run = question_para.add_run(f"Q{i}: {question_text}")
+                question_run.bold = True
+                if rtl_needed:
+                    question_para.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
 
                 # Add options
                 for line in lines[1:]:
                     if "Correct Answer:" in line:
-                        continue  # Skip the correct answer line
+                        continue
 
-                    if line.strip():  # Ensure the line is not empty
-                        # Remove numbers like "1)", "2)", "3)", "4)" from the options
+                    if line.strip():
                         option_text = line.strip()
                         if option_text[:2].isdigit() and option_text[2] == ")":
                             option_text = option_text[3:].strip()
 
+                        # Process RTL text if needed
+                        if rtl_needed:
+                            option_text = process_rtl_text(option_text)
+
                         option_para = doc.add_paragraph(option_text)
-                        # Highlight the correct answer in green
+                        if rtl_needed:
+                            option_para.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
+
+                        # Highlight correct answer
                         if correct_answer and line.strip().startswith(
                             correct_answer + ")"
                         ):
                             for run in option_para.runs:
-                                run.font.color.rgb = RGBColor(
-                                    0, 128, 0
-                                )  # Green for correct answer
-                                run.bold = True  # Bold for correct answer
+                                run.font.color.rgb = RGBColor(0, 128, 0)
+                                run.bold = True
 
-                # Add correct answer at the end
-                correct_para = doc.add_paragraph(f"Correct Answer: {correct_answer}")
+                # Add correct answer
+                correct_text = f"Correct Answer: {correct_answer}"
+                if rtl_needed:
+                    correct_text = process_rtl_text(correct_text)
+
+                correct_para = doc.add_paragraph(correct_text)
+                if rtl_needed:
+                    correct_para.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
                 for run in correct_para.runs:
-                    run.font.color.rgb = RGBColor(0, 128, 0)  # Green for correct answer
-                    run.bold = True  # Bold for correct answer
+                    run.font.color.rgb = RGBColor(0, 128, 0)
+                    run.bold = True
 
-                doc.add_paragraph("\n")  # Add a line break between questions
+                doc.add_paragraph("\n")  # Add spacing
 
-        # Add timestamp
-        timestamp_para = doc.add_paragraph(
-            f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
-        )
-        timestamp_para.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-
+        # Save DOCX
         docx_path = os.path.join(app.config["RESULTS_FOLDER"], filename)
         doc.save(docx_path)
         return docx_path
@@ -380,9 +502,8 @@ def generate_docx(mcqs, filename):
 
 
 def generate_excel(mcqs, filename):
-    """Generate an Excel file from the MCQs with formatted columns."""
+    """Generate an Excel file with full language support."""
     try:
-        # Create a new workbook and select the active worksheet
         wb = openpyxl.Workbook()
         ws = wb.active
         ws.title = "MCQs"
@@ -396,6 +517,7 @@ def generate_excel(mcqs, filename):
             "Option D",
             "Correct Answer",
         ]
+
         for col_num, header in enumerate(headers, 1):
             cell = ws.cell(row=1, column=col_num, value=header)
             cell.font = Font(bold=True)
@@ -405,11 +527,11 @@ def generate_excel(mcqs, filename):
             cell.alignment = Alignment(horizontal="center")
 
         # Set column widths
-        column_widths = [60, 30, 30, 30, 30, 15]  # Adjust as needed
+        column_widths = [60, 30, 30, 30, 30, 15]
         for i, width in enumerate(column_widths, 1):
             ws.column_dimensions[get_column_letter(i)].width = width
 
-        # Process each MCQ
+        # Process MCQs
         row_num = 2
         for mcq in mcqs.split("## MCQ"):
             if mcq.strip():
@@ -450,9 +572,9 @@ def generate_excel(mcqs, filename):
                     Alignment(wrap_text=True)
                 )
 
-                # Format correct answer with green text (no fill)
+                # Format correct answer
                 correct_cell = ws.cell(row=row_num, column=6, value=correct_answer)
-                correct_cell.font = Font(color="008000", bold=True)  # Green color
+                correct_cell.font = Font(color="008000", bold=True)
                 correct_cell.alignment = Alignment(horizontal="center")
 
                 row_num += 1
@@ -463,7 +585,7 @@ def generate_excel(mcqs, filename):
             Font(italic=True)
         )
 
-        # Save the Excel file
+        # Save Excel
         excel_path = os.path.join(app.config["RESULTS_FOLDER"], filename)
         wb.save(excel_path)
         return excel_path
@@ -509,17 +631,15 @@ def generate_mcqs():
     file_path = UPLOAD_FOLDER / filename
     file.save(file_path)
 
-    # Get start and end page inputs
+    # Get page range
     start_page = request.form.get("start_page", type=int)
     end_page = request.form.get("end_page", type=int)
 
-    # Validate page range
-    if start_page and end_page:
-        if start_page > end_page:
-            flash("Start page cannot be greater than end page", "error")
-            return redirect(request.url)
+    if start_page and end_page and start_page > end_page:
+        flash("Start page cannot be greater than end page", "error")
+        return redirect(request.url)
 
-    # Extract text and images based on file type
+    # Extract text and images
     if file_path.suffix.lower() == ".pdf":
         text, images = extract_text_and_images_from_pdf(file_path, start_page, end_page)
     else:
@@ -539,11 +659,14 @@ def generate_mcqs():
         flash("Invalid number of questions", "error")
         return redirect(request.url)
 
-    # Get the selected difficulty level
+    # Get difficulty and language
     difficulty = request.form["difficulty"]
+    target_language = request.form.get("language", "none")
 
-    # Generate MCQs based on the difficulty level
-    mcqs = generate_mcqs_from_text_and_images(text, images, num_questions, difficulty)
+    # Generate MCQs
+    mcqs = generate_mcqs_from_text_and_images(
+        text, images, num_questions, difficulty, target_language
+    )
     if not mcqs:
         flash("Failed to generate MCQs", "error")
         return redirect(request.url)
@@ -554,6 +677,7 @@ def generate_mcqs():
     docx_filename = f"generated_mcqs_{base_filename}.docx"
     excel_filename = f"generated_mcqs_{base_filename}.xlsx"
 
+    # Generate all file formats
     if not save_text_file(mcqs, txt_filename):
         flash("Failed to save text file", "error")
         return redirect(request.url)
