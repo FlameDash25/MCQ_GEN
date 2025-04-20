@@ -46,15 +46,17 @@
         >MCQ Generator
       </div>
       <div class="nav-buttons">
-       
         <div id="date-time">Loading...</div>
       </div>
     </nav>
-<div>
-   <a href="/" class="back-button ">
-          <i class="fa-solid fa-arrow-left"></i> Back 
-        </a>
-</div>
+    
+    <!-- Modified Back Button with onclick event -->
+    <div>
+      <a href="{{ url_for('index') }}" class="back-button" onclick="return confirmBack()">
+        <i class="fa-solid fa-arrow-left"></i> Back 
+      </a>
+    </div>
+
     <div class="container">
       <h1>Generated MCQs</h1>
 
@@ -113,8 +115,16 @@
     </button>
 
     <p class="footer">Made with 🔥 by Velson, Prasanna, Omkar, Sanal</p>
- <script>
-    (function() {
+
+    <!-- Link to JavaScript -->
+    <script src="{{ url_for('static', filename='script1.js') }}"></script>
+    
+    <!-- Added JavaScript for back button confirmation -->
+    <script>
+      function confirmBack() {
+        const confirmBack = confirm("Are you sure you want to go back?");
+        return confirmBack;
+        (function() {
     window.history.forward();
     function noBack() {
         window.history.forward();
@@ -124,9 +134,8 @@
         if (evt.persisted) noBack();
     };
 })();
-  </script>
-    <!-- Link to JavaScript -->
-    <script src="{{ url_for('static', filename='script1.js') }}"></script>
+      }
+    </script>
 
     <!-- Static Wave at Bottom -->
     <svg
