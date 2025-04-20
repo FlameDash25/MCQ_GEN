@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCQ Generator</title>
+
+    <!-- Bootstrap Icons CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23FFD700' class='bi bi-lightning-fill' viewBox='0 0 16 16'%3E%3Cpath d='M7.438 12.012L2.713 8.51a.502.502 0 0 1 .325-.89h3.02l.949-4.765a.5.5 0 0 1 .868-.242l5.25 6a.5.5 0 0 1-.325.89h-3.02l-.949 4.765a.5.5 0 0 1-.868.242z'/%3E%3C/svg%3E" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" />
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}" />
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <nav>
+      <div class="logo">
+        <i class="bi bi-lightning-fill" style="color: #ffcc00; margin-right: 8px"></i>MCQ Generator
+      </div>
+      <div id="date-time">Loading...</div>
+    </nav>
+
+    <!-- Marquee for Announcements -->
+    <marquee behavior="scroll" direction="left">
+      App is in development, please ask a maximum of 35 questions. Supported file types: PDF, DOCX, TXT.
+    </marquee>
+
+    <!-- Main Container -->
+    <div class="container">
+      <h1>MCQ Generator</h1>
+
+      <!-- MCQ Generation Form -->
+      <form id="mcqForm" action="/generate" method="POST" enctype="multipart/form-data">
+        <!-- File Upload Section -->
+        <div class="form-group">
+          <label for="file">Upload Document (PDF, DOCX, TXT):</label>
+          <input type="file" name="file" id="fileInput" accept=".pdf,.docx,.txt" required />
+          <p class="file-name" id="fileName">No file selected</p>
+          <div id="progressBarContainer" style="display: none">
+            <progress id="progressBar" value="0" max="100"></progress>
+            <span id="progressText">0%</span>
+          </div>
+        </div>
+
+        <!-- Number of Questions -->
+        <div class="form-group">
+          <label for="num_questions">Number of Questions:</label>
+          <input type="number" name="num_questions" min="1" required />
+        </div>
+
+        <!-- Difficulty Level -->
+        <div class="form-group">
+          <label for="difficulty">Difficulty Level:</label>
+          <select name="difficulty" id="difficulty" required>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+
+        <!-- Translation Language -->
+        <div class="form-group">
+          <label for="language">Translate to:</label>
+          <select name="language" id="language">
+            <option value="english">English</option>
+            <option value="spanish">Spanish</option>
+            <option value="french">French</option>
+            <option value="german">German</option>
+            <option value="russian">Russian</option>
+          </select>
+        </div>
+
+        <!-- Page Range -->
+        <div class="form-group page-range-group">
+          <div>
+            <label for="start_page">Start Page:</label>
+            <input type="number" name="start_page" id="start_page" min="1" placeholder="Enter start page (default: 1)" />
+          </div>
+          <div>
+            <label for="end_page">End Page:</label>
+            <input type="number" name="end_page" id="end_page" min="1" placeholder="Enter end page" />
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit">🚀Generate MCQs</button>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <p class="footer">
+      Made with 🔥 by
+      <a href="https://www.instagram.com/_velsonnnn_?igsh=MWxxOTI1b2QwbDFlZg==">Velson</a>,
+      <a href="https://www.instagram.com/prxsnna?igsh=MTN2Z3UwMGtuNnYwNg==">Prasanna</a>,
+      <a href="https://www.instagram.com/omkarmanthena?igsh=YzhoYmlhZ2VwdnBl">Omkar</a>,
+      <a href="https://www.instagram.com/sanal.rodrigues?igsh=YzhoYmlhZ2VwdnBl">Sanal</a>
+    </p>
+
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+      <div class="spinner"></div>
+      <p>Processing... Please wait</p>
+    </div>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://unpkg.com/docx-preview@0.1.5/dist/docx-preview.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/docxtemplater/3.28.1/docxtemplater.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script src="{{ url_for('static', filename='sw.js') }}"></script>
+
+    <!-- Static Wave at Bottom -->
+    <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+      <path fill="#0f2027" fill-opacity="1" d="M0,160L48,170.7C96,181,192,203,288,202.7C384,203,480,181,576,160C672,139,768,117,864,128C960,139,1056,181,1152,192C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+    </svg>
+  </body>
+  <script>
+    (function() {
+      window.history.forward();
+      function noBack() {
+          window.history.forward();
+      }
+      window.onload = noBack;
+      window.onpageshow = function(evt) {
+          if (evt.persisted) noBack();
+      };
+    })();
+  </script>
+</html>

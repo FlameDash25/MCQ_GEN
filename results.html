@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MCQ Result</title>
+
+    <!-- Lexend Font from Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+    />
+    <!-- FontAwesome CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <!-- Bootstrap Yellow Lightning Icon as Favicon -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23FFD700' class='bi bi-lightning-fill' viewBox='0 0 16 16'%3E%3Cpath d='M7.438 12.012L2.713 8.51a.502.502 0 0 1 .325-.89h3.02l.949-4.765a.5.5 0 0 1 .868-.242l5.25 6a.5.5 0 0 1-.325.89h-3.02l-.949 4.765a.5.5 0 0 1-.868.242z'/%3E%3C/svg%3E"
+    />
+
+    <!-- Link to CSS -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <!-- Navigation Bar with Back Button -->
+    <nav>
+      <div class="logo">
+        <i
+          class="bi bi-lightning-fill"
+          style="color: #ffcc00; margin-right: 8px"
+        ></i
+        >MCQ Generator
+      </div>
+      <div class="nav-buttons">
+        <div id="date-time">Loading...</div>
+      </div>
+    </nav>
+    
+    <!-- Modified Back Button with onclick event -->
+    <div>
+      <a href="{{ url_for('index') }}" class="back-button" onclick="return confirmBack()">
+        <i class="fa-solid fa-arrow-left"></i> Back 
+      </a>
+    </div>
+
+    <div class="container">
+      <h1>Generated MCQs</h1>
+
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+
+      <!-- Dynamically rendered MCQs -->
+      {% for mcq in mcqs.split('## MCQ') if mcq.strip() %}
+      <div class="mcq">
+        <div>
+          <div class="question">
+            {{ loop.index }}. {{
+            mcq.split('Question:')[1].split('A)')[0].strip() }}
+          </div>
+          <div class="options">
+            <div class="option">
+              A) {{ mcq.split('A)')[1].split('B)')[0].strip() }}
+            </div>
+            <div class="option">
+              B) {{ mcq.split('B)')[1].split('C)')[0].strip() }}
+            </div>
+            <div class="option">
+              C) {{ mcq.split('C)')[1].split('D)')[0].strip() }}
+            </div>
+            <div class="option">
+              D) {{ mcq.split('D)')[1].split('Correct Answer:')[0].strip() }}
+            </div>
+          </div>
+          <div class="correct-answer">
+            Correct Answer: {{ mcq.split('Correct Answer:')[1].strip() }}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <div class="buttons">
+        <a href="/download/{{ txt_filename }}"
+          ><i class="bi bi-filetype-txt"></i> Download TXT</a
+        >
+        <a href="/download/{{ pdf_filename }}"
+          ><i class="bi bi-filetype-pdf"></i> Download PDF</a
+        >
+        <a href="/download/{{ docx_filename }}"
+          ><i class="bi bi-filetype-docx"></i> Download DOCX</a
+        >
+        <a href="/download/{{ excel_filename }}"
+          ><i class="bi bi-filetype-xlsx"></i> Download Excel</a
+        >
+      </div>
+    </div>
+
+    <!-- Copy to Clipboard Button -->
+    <button class="copy-button" onclick="copyAllMCQs()">
+      <i class="bi bi-clipboard"></i> Copy All MCQs
+    </button>
+
+    <p class="footer">Made with 🔥 by Velson, Prasanna, Omkar, Sanal</p>
+
+    <!-- Link to JavaScript -->
+    <script src="{{ url_for('static', filename='script1.js') }}"></script>
+    
+    <!-- Added JavaScript for back button confirmation -->
+    <script>
+      function confirmBack() {
+        const confirmBack = confirm("Are you sure you want to go back?");
+        return confirmBack;
+        (function() {
+    window.history.forward();
+    function noBack() {
+        window.history.forward();
+    }
+    window.onload = noBack;
+    window.onpageshow = function(evt) {
+        if (evt.persisted) noBack();
+    };
+})();
+      }
+    </script>
+
+    <!-- Static Wave at Bottom -->
+    <svg
+      class="wave"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1440 320"
+      preserveAspectRatio="none"
+    >
+      <path
+        fill="#0f2027"
+        fill-opacity="1"
+        d="M0,160L48,170.7C96,181,192,203,288,202.7C384,203,480,181,576,160C672,139,768,117,864,128C960,139,1056,181,1152,192C1248,203,1344,181,1392,170.7L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+      ></path>
+    </svg>
+  </body>
+</html>
