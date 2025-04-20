@@ -146,12 +146,12 @@ marquee {
     overflow: hidden;
     white-space: nowrap;
     position: absolute;
-    top: 4rem;
+    top: 4.2rem;
     font-size: 0.875rem;
     font-weight: bold;
     color: #ffcc00;
     margin-top: 0.6rem;
-    padding: 0.5rem 0;
+    padding: 0.4rem 0;
     background: rgba(255, 204, 0, 0.1);
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
@@ -162,7 +162,7 @@ marquee {
     marquee {
         font-size: 0.75rem;
         /* Smaller font size for tablets */
-        padding: 0.4rem 0;
+        padding: 0.3rem 0;
         /* Smaller padding */
     }
 }
@@ -180,10 +180,10 @@ marquee {
 .container {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 15px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    max-width: 800px;
+    max-width: 900px;
     width: 90%;
     animation: slideIn 0.8s ease-in-out;
     margin-top: 6rem;
@@ -213,11 +213,12 @@ h1 {
 
 .form-group {
     text-align: left;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
 }
 
 label {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 500;
     display: block;
     margin-bottom: 0.5rem;
